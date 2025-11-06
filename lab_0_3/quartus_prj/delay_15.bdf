@@ -37,7 +37,7 @@ refer to the applicable agreement for further details.
 )
 (pin
 	(input)
-	(rect 48 72 216 88)
+	(rect -32 72 136 88)
 	(text "INPUT" (rect 125 0 153 9)(font "Arial" (font_size 6)))
 	(text "data_i" (rect 5 0 34 10)(font "Arial" ))
 	(pt 168 8)
@@ -53,7 +53,7 @@ refer to the applicable agreement for further details.
 )
 (pin
 	(input)
-	(rect 48 136 216 152)
+	(rect -32 136 136 152)
 	(text "INPUT" (rect 125 0 153 9)(font "Arial" (font_size 6)))
 	(text "rst_i" (rect 5 0 26 12)(font "Intel Clear" ))
 	(pt 168 8)
@@ -69,7 +69,7 @@ refer to the applicable agreement for further details.
 )
 (pin
 	(input)
-	(rect 48 160 216 176)
+	(rect -32 160 136 176)
 	(text "INPUT" (rect 125 0 153 9)(font "Arial" (font_size 6)))
 	(text "clk_i" (rect 5 0 27 12)(font "Intel Clear" ))
 	(pt 168 8)
@@ -1034,53 +1034,28 @@ refer to the applicable agreement for further details.
 	(flipx_rotate90)
 )
 (symbol
-	(rect 240 56 304 136)
-	(text "DFF" (rect 1 0 19 9)(font "Arial" (font_size 6)))
-	(text "inst16" (rect 3 68 33 80)(font "Intel Clear" ))
+	(rect 160 128 208 160)
+	(text "NOT" (rect 1 0 21 9)(font "Arial" (font_size 6)))
+	(text "inst18" (rect 3 21 33 33)(font "Intel Clear" ))
 	(port
-		(pt 32 80)
+		(pt 0 16)
 		(input)
-		(text "CLRN" (rect 21 59 46 70)(font "Courier New" (bold)))
-		(text "CLRN" (rect 21 58 46 69)(font "Courier New" (bold)))
-		(line (pt 32 80)(pt 32 76))
+		(text "IN" (rect 2 7 14 18)(font "Courier New" (bold))(invisible))
+		(text "IN" (rect 2 7 14 18)(font "Courier New" (bold))(invisible))
+		(line (pt 0 16)(pt 13 16))
 	)
 	(port
-		(pt 0 40)
-		(input)
-		(text "CLK" (rect 3 29 24 40)(font "Courier New" (bold))(invisible))
-		(text "CLK" (rect 3 29 24 40)(font "Courier New" (bold))(invisible))
-		(line (pt 0 40)(pt 12 40))
-	)
-	(port
-		(pt 0 24)
-		(input)
-		(text "D" (rect 14 20 22 31)(font "Courier New" (bold)))
-		(text "D" (rect 14 20 22 31)(font "Courier New" (bold)))
-		(line (pt 0 24)(pt 12 24))
-	)
-	(port
-		(pt 32 0)
-		(input)
-		(text "PRN" (rect 24 13 44 24)(font "Courier New" (bold)))
-		(text "PRN" (rect 24 11 44 22)(font "Courier New" (bold)))
-		(line (pt 32 4)(pt 32 0))
-	)
-	(port
-		(pt 64 24)
+		(pt 48 16)
 		(output)
-		(text "Q" (rect 45 20 53 31)(font "Courier New" (bold)))
-		(text "Q" (rect 41 20 49 31)(font "Courier New" (bold)))
-		(line (pt 52 24)(pt 64 24))
+		(text "OUT" (rect 32 7 53 18)(font "Courier New" (bold))(invisible))
+		(text "OUT" (rect 32 7 53 18)(font "Courier New" (bold))(invisible))
+		(line (pt 39 16)(pt 48 16))
 	)
 	(drawing
-		(line (pt 12 12)(pt 52 12))
-		(line (pt 12 68)(pt 52 68))
-		(line (pt 52 68)(pt 52 12))
-		(line (pt 12 68)(pt 12 12))
-		(line (pt 19 40)(pt 12 47))
-		(line (pt 12 32)(pt 20 40))
-		(circle (rect 28 4 36 12))
-		(circle (rect 28 68 36 76))
+		(line (pt 13 25)(pt 13 7))
+		(line (pt 13 7)(pt 31 16))
+		(line (pt 13 25)(pt 31 16))
+		(circle (rect 31 12 39 20))
 	)
 )
 (connector
@@ -1384,18 +1359,8 @@ refer to the applicable agreement for further details.
 	(pt 1864 408)
 )
 (connector
-	(text "data_delay[15]" (rect 1621 160 1633 233)(font "Intel Clear" )(vertical))
-	(pt 1640 296)
-	(pt 1640 80)
-)
-(connector
 	(pt 1640 296)
 	(pt 1688 296)
-)
-(connector
-	(text "data_delay[14]" (rect 1533 160 1545 233)(font "Intel Clear" )(vertical))
-	(pt 1552 312)
-	(pt 1552 80)
 )
 (connector
 	(pt 1552 312)
@@ -1410,11 +1375,6 @@ refer to the applicable agreement for further details.
 	(pt 1568 80)
 )
 (connector
-	(text "data_delay[13]" (rect 1445 160 1457 233)(font "Intel Clear" )(vertical))
-	(pt 1464 328)
-	(pt 1464 80)
-)
-(connector
 	(pt 1464 328)
 	(pt 1688 328)
 )
@@ -1425,11 +1385,6 @@ refer to the applicable agreement for further details.
 (connector
 	(pt 1464 80)
 	(pt 1480 80)
-)
-(connector
-	(text "data_delay[12]" (rect 1357 160 1369 233)(font "Intel Clear" )(vertical))
-	(pt 1376 344)
-	(pt 1376 80)
 )
 (connector
 	(pt 1376 344)
@@ -1444,11 +1399,6 @@ refer to the applicable agreement for further details.
 	(pt 1392 80)
 )
 (connector
-	(text "data_delay[11]" (rect 1269 160 1281 233)(font "Intel Clear" )(vertical))
-	(pt 1288 360)
-	(pt 1288 80)
-)
-(connector
 	(pt 1288 360)
 	(pt 1688 360)
 )
@@ -1459,11 +1409,6 @@ refer to the applicable agreement for further details.
 (connector
 	(pt 1288 80)
 	(pt 1304 80)
-)
-(connector
-	(text "data_delay[10]" (rect 1181 160 1193 233)(font "Intel Clear" )(vertical))
-	(pt 1200 376)
-	(pt 1200 80)
 )
 (connector
 	(pt 1200 376)
@@ -1478,11 +1423,6 @@ refer to the applicable agreement for further details.
 	(pt 1216 80)
 )
 (connector
-	(text "data_delay[9]" (rect 1093 165 1105 231)(font "Intel Clear" )(vertical))
-	(pt 1112 392)
-	(pt 1112 80)
-)
-(connector
 	(pt 1112 392)
 	(pt 1688 392)
 )
@@ -1493,11 +1433,6 @@ refer to the applicable agreement for further details.
 (connector
 	(pt 1112 80)
 	(pt 1128 80)
-)
-(connector
-	(text "data_delay[8]" (rect 1005 165 1017 231)(font "Intel Clear" )(vertical))
-	(pt 1024 408)
-	(pt 1024 80)
 )
 (connector
 	(pt 1024 408)
@@ -1512,11 +1447,6 @@ refer to the applicable agreement for further details.
 	(pt 1040 80)
 )
 (connector
-	(text "data_delay[7]" (rect 917 168 929 234)(font "Intel Clear" )(vertical))
-	(pt 936 424)
-	(pt 936 80)
-)
-(connector
 	(pt 936 424)
 	(pt 1688 424)
 )
@@ -1527,11 +1457,6 @@ refer to the applicable agreement for further details.
 (connector
 	(pt 936 80)
 	(pt 952 80)
-)
-(connector
-	(text "data_delay[6]" (rect 829 165 841 231)(font "Intel Clear" )(vertical))
-	(pt 848 440)
-	(pt 848 80)
 )
 (connector
 	(pt 848 440)
@@ -1546,11 +1471,6 @@ refer to the applicable agreement for further details.
 	(pt 864 80)
 )
 (connector
-	(text "data_delay[5]" (rect 741 165 753 231)(font "Intel Clear" )(vertical))
-	(pt 760 456)
-	(pt 760 80)
-)
-(connector
 	(pt 760 456)
 	(pt 1688 456)
 )
@@ -1561,11 +1481,6 @@ refer to the applicable agreement for further details.
 (connector
 	(pt 760 80)
 	(pt 776 80)
-)
-(connector
-	(text "data_delay[4]" (rect 653 165 665 231)(font "Intel Clear" )(vertical))
-	(pt 672 472)
-	(pt 672 80)
 )
 (connector
 	(pt 672 472)
@@ -1580,11 +1495,6 @@ refer to the applicable agreement for further details.
 	(pt 688 80)
 )
 (connector
-	(text "data_delay[3]" (rect 564 164 576 230)(font "Intel Clear" )(vertical))
-	(pt 584 488)
-	(pt 584 80)
-)
-(connector
 	(pt 584 488)
 	(pt 1688 488)
 )
@@ -1595,11 +1505,6 @@ refer to the applicable agreement for further details.
 (connector
 	(pt 584 80)
 	(pt 600 80)
-)
-(connector
-	(text "data_delay[2]" (rect 476 164 488 230)(font "Intel Clear" )(vertical))
-	(pt 496 504)
-	(pt 496 80)
 )
 (connector
 	(pt 496 504)
@@ -1614,11 +1519,6 @@ refer to the applicable agreement for further details.
 	(pt 512 80)
 )
 (connector
-	(text "data_delay[1]" (rect 388 164 400 230)(font "Intel Clear" )(vertical))
-	(pt 408 520)
-	(pt 408 80)
-)
-(connector
 	(pt 408 520)
 	(pt 1688 520)
 )
@@ -1629,11 +1529,6 @@ refer to the applicable agreement for further details.
 (connector
 	(pt 408 80)
 	(pt 424 80)
-)
-(connector
-	(text "data_delay[0]" (rect 300 164 312 230)(font "Intel Clear" )(vertical))
-	(pt 320 536)
-	(pt 320 80)
 )
 (connector
 	(pt 320 536)
@@ -1730,44 +1625,104 @@ refer to the applicable agreement for further details.
 	(pt 1688 616)
 )
 (connector
-	(pt 216 80)
-	(pt 240 80)
-)
-(connector
-	(pt 304 80)
-	(pt 320 80)
-)
-(connector
 	(pt 320 80)
 	(pt 336 80)
 )
 (connector
-	(pt 272 136)
-	(pt 272 144)
+	(pt 136 144)
+	(pt 160 144)
 )
 (connector
-	(pt 216 144)
-	(pt 272 144)
+	(pt 136 168)
+	(pt 328 168)
 )
 (connector
-	(pt 272 144)
+	(pt 208 144)
 	(pt 368 144)
 )
 (connector
-	(pt 240 96)
-	(pt 232 96)
+	(pt 136 80)
+	(pt 320 80)
 )
 (connector
-	(pt 232 96)
-	(pt 232 168)
+	(text "data_no_delay" (rect 300 164 312 234)(font "Intel Clear" )(vertical))
+	(pt 320 536)
+	(pt 320 80)
 )
 (connector
-	(pt 216 168)
-	(pt 232 168)
+	(text "data_delay[0]" (rect 388 164 400 230)(font "Intel Clear" )(vertical))
+	(pt 408 520)
+	(pt 408 80)
 )
 (connector
-	(pt 232 168)
-	(pt 328 168)
+	(text "data_delay[1]" (rect 476 164 488 230)(font "Intel Clear" )(vertical))
+	(pt 496 504)
+	(pt 496 80)
+)
+(connector
+	(text "data_delay[2]" (rect 564 164 576 230)(font "Intel Clear" )(vertical))
+	(pt 584 488)
+	(pt 584 80)
+)
+(connector
+	(text "data_delay[3]" (rect 653 165 665 231)(font "Intel Clear" )(vertical))
+	(pt 672 472)
+	(pt 672 80)
+)
+(connector
+	(text "data_delay[4]" (rect 741 165 753 231)(font "Intel Clear" )(vertical))
+	(pt 760 456)
+	(pt 760 80)
+)
+(connector
+	(text "data_delay[5]" (rect 829 165 841 231)(font "Intel Clear" )(vertical))
+	(pt 848 440)
+	(pt 848 80)
+)
+(connector
+	(text "data_delay[6]" (rect 917 168 929 234)(font "Intel Clear" )(vertical))
+	(pt 936 424)
+	(pt 936 80)
+)
+(connector
+	(text "data_delay[7]" (rect 1005 165 1017 231)(font "Intel Clear" )(vertical))
+	(pt 1024 408)
+	(pt 1024 80)
+)
+(connector
+	(text "data_delay[8]" (rect 1093 165 1105 231)(font "Intel Clear" )(vertical))
+	(pt 1112 392)
+	(pt 1112 80)
+)
+(connector
+	(text "data_delay[9]" (rect 1180 159 1192 225)(font "Intel Clear" )(vertical))
+	(pt 1200 376)
+	(pt 1200 80)
+)
+(connector
+	(text "data_delay[10]" (rect 1268 159 1280 232)(font "Intel Clear" )(vertical))
+	(pt 1288 360)
+	(pt 1288 80)
+)
+(connector
+	(text "data_delay[11]" (rect 1356 159 1368 232)(font "Intel Clear" )(vertical))
+	(pt 1376 344)
+	(pt 1376 80)
+)
+(connector
+	(text "data_delay[12]" (rect 1444 159 1456 232)(font "Intel Clear" )(vertical))
+	(pt 1464 328)
+	(pt 1464 80)
+)
+(connector
+	(text "data_delay[13]" (rect 1532 159 1544 232)(font "Intel Clear" )(vertical))
+	(pt 1552 312)
+	(pt 1552 80)
+)
+(connector
+	(text "data_delay[14]" (rect 1620 159 1632 232)(font "Intel Clear" )(vertical))
+	(pt 1640 296)
+	(pt 1640 80)
 )
 (junction (pt 328 168))
 (junction (pt 416 168))
@@ -1815,5 +1770,3 @@ refer to the applicable agreement for further details.
 (junction (pt 1472 584))
 (junction (pt 1472 608))
 (junction (pt 320 80))
-(junction (pt 272 144))
-(junction (pt 232 168))

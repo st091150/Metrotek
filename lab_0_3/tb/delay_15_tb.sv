@@ -2,17 +2,21 @@
 
 module delay_15_tb;
 
-  parameter NumTests = 50;
+  parameter TEST_NUM = 50;
 
   logic clk;
 
-  logic            data_i;
-  logic [3:0]      data_delay_i;
-  logic            rst_i;
+  logic        data_i;
+  logic [3:0]  data_delay_i;
+  logic        rst_i;
 
-  logic            data_o;
+  logic        data_o;
 
-  logic            val_o;
+  logic        queue[$:16];
+  logic        queue_top_el;
+
+  int          delay_hold;
+
   initial
     forever
       #5 clk = !clk;
@@ -25,8 +29,16 @@ module delay_15_tb;
       data_delay_i          = 0;
       rst_i                 = 1;
 
-      val_o                 = 0;
+      queue_top_el          = 0;
     end
+
+  initial
+    forever
+      begin
+        @( posedge clk )
+        data_i = $urandom_range(1, 0);
+        $display("data_i=%1d", data_i);
+      end
 
   delay_15 DUT (
     .clk_i         ( clk          ),
@@ -38,43 +50,37 @@ module delay_15_tb;
 
   initial 
     begin
-      for( int i = 1; i < NumTests + 1; i = i + 1 )
+      for( int i = 0; i < TEST_NUM; i = i + 1 )
         begin
           @( posedge clk );
           $display("TEST %0d", i);
 
-          data_i       = $urandom_range(1, 0);
           data_delay_i = $urandom_range(15, 0);
+          delay_hold   = $urandom_range(32, 16);
           rst_i        = 1;
-          val_o        = 0;
+          queue.delete();
 
-          $display("data_i=%d data_delay_i=%d", data_i, data_delay_i);
-          for ( int j = 0; j < 16; j = j + 1 )
+          @( negedge clk );
+          rst_i        = 0;
+          $display("data_delay_i=%d delay_hold=%2d", data_delay_i, delay_hold);
+          for ( int j = 0; j < delay_hold; j = j + 1 )
             begin
               @( posedge clk );
-              #1 // waiting for output from DUT
-              if( data_o === 1)
+              #1 // waiting for data_o from DUT
+              queue.push_back(data_i);
+              $display("queue=%p j=%2d data_o=%1d top_el=%1d", queue, j, data_o, queue_top_el);
+              if( j >= data_delay_i )
                 begin
-                  if ( j >= data_delay_i)
+                  queue_top_el = queue.pop_front();
+                  if ( data_o !== queue_top_el)
                     begin
-                      if (j === data_delay_i)
-                        val_o = 1;
-                    end
-                  else
-                    begin
-                      $display("data_delay_i=%d data_o=%d delay=%2d", data_delay_i, data_o, j);
-                      $display("FAIL");
+                      $error("data_delay_i=%2d delay_hold=%2d data_o=%2d queue_top_el=%2d j=%2d queue=%p",
+                              data_delay_i, delay_hold, data_o, queue_top_el, j, queue);
+                      $error("FAIL");
                       $stop;
                     end
                 end
             end
-          if( data_i === 1 && val_o === 0 )
-            begin
-              $display("FAIL");
-              $stop;
-            end
-          @( negedge clk );
-          rst_i = 0;
         end
         $display("ALL TESTS PASSED");
         $stop;

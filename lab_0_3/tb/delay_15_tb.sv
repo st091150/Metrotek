@@ -3,6 +3,7 @@
 module delay_15_tb;
 
   parameter TEST_NUM = 50;
+  parameter DELAY_HOLD = 32;
 
   logic clk;
 
@@ -21,6 +22,14 @@ module delay_15_tb;
     forever
       #5 clk = !clk;
 
+  default clocking cb @( posedge clk );
+  endclocking
+
+  always @( posedge clk )
+    begin
+      data_i = $urandom_range(1, 0);
+  end
+
   initial 
     begin
       clk                   = 0;
@@ -31,15 +40,7 @@ module delay_15_tb;
 
       queue_top_el          = 0;
     end
-
-  initial
-    forever
-      begin
-        @( posedge clk )
-        data_i = $urandom_range(1, 0);
-        $display("data_i=%1d", data_i);
-      end
-
+  
   delay_15 DUT (
     .clk_i         ( clk          ),
     .data_i        ( data_i       ),
@@ -55,19 +56,18 @@ module delay_15_tb;
           @( posedge clk );
           $display("TEST %0d", i);
 
-          data_delay_i = $urandom_range(15, 0);
-          delay_hold   = $urandom_range(32, 16);
+          data_delay_i = $urandom_range(15, 1);
           rst_i        = 1;
           queue.delete();
 
-          @( negedge clk );
+          @( posedge clk );
           rst_i        = 0;
           $display("data_delay_i=%d delay_hold=%2d", data_delay_i, delay_hold);
-          for ( int j = 0; j < delay_hold; j = j + 1 )
+          for ( int j = 0; j < DELAY_HOLD; j = j + 1 )
             begin
               @( posedge clk );
-              #1 // waiting for data_o from DUT
-              queue.push_back(data_i);
+              $display("data_i=%1d", data_i);
+              ##0 queue.push_back(data_i);
               $display("queue=%p j=%2d data_o=%1d top_el=%1d", queue, j, data_o, queue_top_el);
               if( j >= data_delay_i )
                 begin

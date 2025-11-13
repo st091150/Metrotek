@@ -55,7 +55,7 @@ module sync_d_trigger_tb;
           $stop;
         end
 
-      // reset inside the clock cycle
+      // reset within the clock cycle
       d_i = 1; 
       @( posedge clk ); // q_o = 1
       #1;

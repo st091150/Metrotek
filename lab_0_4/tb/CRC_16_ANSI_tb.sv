@@ -14,22 +14,28 @@ module CRC_16_ANSI_tb;
 
   logic [15:0] data_o;
 
-  function automatic logic [15:0] crc16_update(
-      input logic [15:0] crc_in,
-      input logic bit_in
-  );
-      logic [15:0] crc;
-      logic fb;
-
-      crc = crc_in;
-
-      fb = crc[0] ^ bit_in;
-      crc = crc >> 1;
-      if (fb)
-         crc = crc ^ 16'h8005;
-
-      return crc;
-  endfunction
+function automatic [15:0] crc16_update;
+    input [15:0] crcIn;
+    input [0:0] data;
+begin
+    crc16_update[0] = crcIn[0] ^ crcIn[1] ^ data[0];
+    crc16_update[1] = crcIn[2];
+    crc16_update[2] = crcIn[3];
+    crc16_update[3] = crcIn[4];
+    crc16_update[4] = crcIn[5];
+    crc16_update[5] = crcIn[6];
+    crc16_update[6] = crcIn[7];
+    crc16_update[7] = crcIn[8];
+    crc16_update[8] = crcIn[9];
+    crc16_update[9] = crcIn[10];
+    crc16_update[10] = crcIn[11];
+    crc16_update[11] = crcIn[12];
+    crc16_update[12] = crcIn[13];
+    crc16_update[13] = crcIn[0] ^ crcIn[14] ^ data[0];
+    crc16_update[14] = crcIn[15];
+    crc16_update[15] = crcIn[0] ^ data[0];
+end
+endfunction
 
   clocking cb @(posedge clk);
       output data_i;

@@ -14,7 +14,7 @@
 
 // PROGRAM		"Quartus Prime"
 // VERSION		"Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition"
-// CREATED		"Tue Nov 18 00:50:02 2025"
+// CREATED		"Tue Nov 18 13:06:31 2025"
 
 module CRC_16_ANSI(
 	clk_i,
@@ -120,7 +120,7 @@ else
 end
 
 
-const_8005	b2v_inst1(
+const_A001	b2v_inst1(
 	.result(Poly));
 
 

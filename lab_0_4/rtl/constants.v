@@ -6,8 +6,8 @@ module const_ffff(
 endmodule
 
 
-module const_8005(
+module const_A001(
     output [15:0] result
 );
-    assign result = 16'h8005;
+    assign result = 16'hA001;
 endmodule

@@ -3431,21 +3431,6 @@ refer to the applicable agreement for further details.
 	)
 )
 (symbol
-	(rect -16 264 128 344)
-	(text "const_8005" (rect 5 0 60 10)(font "Arial" ))
-	(text "inst1" (rect 8 64 32 76)(font "Intel Clear" ))
-	(port
-		(pt 144 32)
-		(output)
-		(text "result[15..0]" (rect 0 0 55 10)(font "Arial" ))
-		(text "result[15..0]" (rect 77 27 132 37)(font "Arial" ))
-		(line (pt 144 32)(pt 128 32)(line_width 3))
-	)
-	(drawing
-		(rectangle (rect 16 16 128 64))
-	)
-)
-(symbol
 	(rect 2536 328 2584 392)
 	(text "XOR" (rect 39 1 48 22)(font "Arial" (font_size 6))(vertical))
 	(text "inst24" (rect -1 3 11 33)(font "Intel Clear" )(vertical))
@@ -3505,6 +3490,21 @@ refer to the applicable agreement for further details.
 		(circle (rect 9 12 17 20))
 	)
 	(flipy)
+)
+(symbol
+	(rect -16 264 128 344)
+	(text "const_A001" (rect 5 0 61 10)(font "Arial" ))
+	(text "inst1" (rect 8 64 32 76)(font "Intel Clear" ))
+	(port
+		(pt 144 32)
+		(output)
+		(text "result[15..0]" (rect 0 0 55 10)(font "Arial" ))
+		(text "result[15..0]" (rect 77 27 132 37)(font "Arial" ))
+		(line (pt 144 32)(pt 128 32)(line_width 3))
+	)
+	(drawing
+		(rectangle (rect 16 16 128 64))
+	)
 )
 (connector
 	(pt 368 56)

@@ -57,7 +57,7 @@ module serializer_tb;
   );
     expected_data_o = '0;
 
-    @( cb )
+    @( cb );
     cb.srst_i <= 1;
 
     @( cb );
@@ -87,8 +87,8 @@ module serializer_tb;
     else
       expected_data_o = '0;
     
-    @( cb )
-      cb.data_val_i <= 0;
+    @( cb );
+    cb.data_val_i <= 0;
 
     $display("data_i = %b, data_mod_i = %d, data_val_i = %d, expected_data_o = %b",
               data_i_in, data_mod_i_in, data_val_i_in, expected_data_o);

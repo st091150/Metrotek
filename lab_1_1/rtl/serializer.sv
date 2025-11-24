@@ -29,12 +29,15 @@ module serializer (
         return mod;
   endfunction
 
-  assign val_bits_init  = calc_val_bits( data_mod_i );
-  
-  assign busy_o         = working;
+  always_comb 
+    begin
+      val_bits_init  = calc_val_bits( data_mod_i );
 
-  assign ser_data_val_o = working;
-  assign ser_data_o     = shift_reg[15];
+      busy_o         = working;
+
+      ser_data_val_o = working;
+      ser_data_o     = shift_reg[15];
+    end
 
   always_ff @( posedge clk_i )
     begin

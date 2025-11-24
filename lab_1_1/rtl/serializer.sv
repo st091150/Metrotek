@@ -29,9 +29,12 @@ module serializer (
         return mod;
   endfunction
 
-  assign val_bits_init = calc_val_bits( data_mod_i );
+  assign val_bits_init  = calc_val_bits( data_mod_i );
+  
+  assign busy_o         = working;
 
-  assign busy_o = working;
+  assign ser_data_val_o = working;
+  assign ser_data_o     = shift_reg[15];
 
   always_ff @( posedge clk_i )
     begin
@@ -64,42 +67,13 @@ module serializer (
 
   always_ff @( posedge clk_i )
     begin
-      if ( srst_i )
-        shift_reg <= '0;
-      else
-        if ( !working )
-          begin
-            if ( data_val_i && val_bits_init )
-              shift_reg <= ( data_i << 1 );
-          end
-        else
-          shift_reg <= {shift_reg[14:0], 1'b0};
-    end
-
-  always_ff @( posedge clk_i )
-    begin
-      if ( srst_i )
+      if ( !working )
         begin
-          ser_data_val_o <= 0;
-          ser_data_o     <= 0;
+          if ( data_val_i && val_bits_init )
+            shift_reg <= data_i;
         end
       else
-        begin
-          if ( !working )
-            begin
-              if ( data_val_i && val_bits_init )
-                begin
-                  ser_data_val_o <= 1;
-                  ser_data_o     <= data_i[15];
-                end
-            end
-          else
-            begin
-              ser_data_o <= shift_reg[15];
-              if ( !val_bits )
-                ser_data_val_o <= 0;
-            end
-        end
+        shift_reg <= {shift_reg[14:0], 1'b0};
     end
 
 endmodule

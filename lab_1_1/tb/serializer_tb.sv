@@ -57,12 +57,6 @@ module serializer_tb;
   );
     expected_data_o = '0;
 
-    @( cb );
-    cb.srst_i <= 1;
-
-    @( cb );
-    cb.srst_i <= 0;
-
     @ ( cb );
     cb.data_i     <= data_i_in;
     cb.data_mod_i <= data_mod_i_in;
@@ -132,11 +126,25 @@ module serializer_tb;
       data_mod_i_local = '0;
       data_val_i_local =  0;
 
-      $display("Boundary case test for data_mod_i = 1");
-      serialization_test(16'hFFFF, 1, 1);
 
-      $display("Boundary case test for data_mod_i = 2");
-      serialization_test(16'hFFFF, 2, 1);
+      @( cb );
+      cb.srst_i <= 1;
+
+      @( cb );
+      cb.srst_i <= 0;
+
+      @( cb );
+
+      $display("Boundary case test for data_mod_i in [1, 2]");
+      for ( int i = 0; i < 30; i++ )
+        begin
+          $display("Boundary case TEST %0d", i);
+          data_i_local     = $urandom_range(16'hFFFF, 0);
+          data_mod_i_local = $urandom_range(3, 0);
+          data_val_i_local = $urandom_range(1, 0);
+
+          serialization_test(data_i_local, data_mod_i_local, data_val_i_local);
+        end
 
       for( int i = 0; i < TEST_NUM; i++ )
         begin

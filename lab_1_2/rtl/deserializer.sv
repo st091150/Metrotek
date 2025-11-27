@@ -23,7 +23,7 @@ module deserializer (
 
   always_ff @( posedge clk_i )
     begin
-      if ( srst_i || deser_data_val_o)
+      if ( srst_i || deser_data_val_o )
         deser_data_val_o <= 0;
       else
         begin

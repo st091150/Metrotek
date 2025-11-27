@@ -62,15 +62,11 @@ module deserializer_tb;
         cb.data_i     <= data_i_in[15 - bit_count];
 
         @( cb );
-        if ( cb.deser_data_val_o === 1 )
+        if ( ( cb.deser_data_val_o === 1 ) && ( bit_count != 15 ) && ( bit_count != 0 ) )
           begin
-            if ( ( ( is_dut_reset == 0 ) && ( bit_count != 15 ) && ( bit_count != 0 ) ) ||
-                 ( ( is_dut_reset == 1 ) && ( bit_count == 0 ) ) )
-              begin
-                $error("ERROR: Expected deser_data_val_o = 0, DUT deser_data_val_o = 1");
-                $display("data_i=%b, bit_count=%d, deser_data_val_o=%b", data_i_in, bit_count, cb.deser_data_val_o);
-                $stop;
-              end
+            $error("ERROR: Expected deser_data_val_o = 0, DUT deser_data_val_o = 1");
+            $display("data_i=%b, bit_count=%d, deser_data_val_o=%b", data_i_in, bit_count, cb.deser_data_val_o);
+            $stop;
           end
 
         if ( data_val_i_local )
@@ -111,7 +107,7 @@ module deserializer_tb;
       @( cb );
       $display("setup TEST");
       data_i_local = $urandom_range(16'hFFFF, 0);
-      deserialization_test(data_i_local, 1, 1);
+      deserialization_test(data_i_local, 0, 1);
 
       for( int i = 0; i < TEST_NUM; i++ )
         begin

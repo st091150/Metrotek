@@ -10,9 +10,24 @@ module deserializer (
   output logic        deser_data_val_o
 );
 
-  logic [4:0] bit_count = '0;
+  logic [3:0] bit_count = '0;
 
-  assign deser_data_val_o = ( bit_count == 5'd16 ) ? 1'd1 : 1'd0;
+  always_ff @( posedge clk_i )
+    begin
+      if ( srst_i )
+        deser_data_val_o <= 0;
+      else
+        begin
+          if ( data_val_i )
+            begin
+              if ( bit_count == 15 )
+                deser_data_val_o <= 1;
+              else 
+                if ( deser_data_val_o )
+                  deser_data_val_o <= 0;
+            end
+        end
+    end
 
   always_ff @( posedge clk_i )
     begin
@@ -24,16 +39,9 @@ module deserializer (
     begin
       if ( srst_i )
         bit_count <= '0;
-      else
-        begin
-          if ( data_val_i )
-            begin
-              if ( bit_count == 5'd16 )
-                bit_count <= 5'd1;
-              else
-                bit_count <= bit_count + 5'd1;
-            end
-        end
+      else 
+        if ( data_val_i )
+          bit_count <= bit_count + 4'b1;
     end
 
 endmodule

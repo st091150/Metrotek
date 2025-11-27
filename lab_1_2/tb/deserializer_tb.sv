@@ -15,7 +15,6 @@ module deserializer_tb;
   logic        deser_data_val_o;
 
   logic [15:0] data_i_local;
-  bit          data_val_i_local;
 
   deserializer DUT (
     .clk_i            ( clk              ),
@@ -40,7 +39,7 @@ module deserializer_tb;
 
   task automatic deserialization_test( input logic [15:0] data_i_in, input bit fixed_data_val_i, input bit is_dut_reset);
 
-    logic        data_val_i_local;
+    bit          data_val_i_local;
     logic [4:0]  bit_count;
 
     data_val_i_local =  0;

@@ -61,6 +61,13 @@ module deserializer_tb;
         cb.data_val_i <= data_val_i_local;
         cb.data_i     <= data_i_in[15 - bit_count];
 
+        /*
+          About (bit_count != 0): 
+          If the DUT was not reset before the test (is_dut_reset = 0), deser_data_val_o is expected to be 1
+          from the previous test when bit_count = 0.
+          The case when the DUT is reset (is_dut_reset = 1) and bit_count = 0 is tested earlier,
+          therefore the condition (bit_count != 0) is added here to avoid reporting a false error.
+        */
         @( cb );
         if ( ( cb.deser_data_val_o === 1 ) && ( bit_count != 15 ) && ( bit_count != 0 ) )
           begin

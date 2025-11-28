@@ -23,13 +23,10 @@ module deserializer (
 
   always_ff @( posedge clk_i )
     begin
-      if ( srst_i || deser_data_val_o )
+      if ( srst_i )
         deser_data_val_o <= 0;
       else
-        begin
-          if ( data_val_i && bit_count == 15 )
-            deser_data_val_o <= 1;
-        end
+        deser_data_val_o <= ( data_val_i && bit_count == 15 );
     end
 
   always_ff @( posedge clk_i )

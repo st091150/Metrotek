@@ -2,7 +2,8 @@
 
 module deserializer_tb;
 
-  parameter TEST_NUM = 10000;
+  parameter TEST_NUM                  = 10000;
+  parameter FIXED_DATA_VAL_I_TEST_NUM = 1000;
 
   logic        clk;
 
@@ -101,10 +102,17 @@ module deserializer_tb;
           $stop;
         end
 
-      $display("setup TEST");
-      data_i_local = $urandom_range(16'hFFFF, 0);
-      deserialization_test(data_i_local, 0);
+      $display("fixed_data_val_i TESTS:");
+      for( int i = 0; i < FIXED_DATA_VAL_I_TEST_NUM; i++ )
+        begin
+          $display("fixed_data_val_i: TEST %0d", i);
+          
+          data_i_local = $urandom_range(16'hFFFF, 0);
 
+          deserialization_test(data_i_local, 1);
+        end
+
+      $display("main TESTS:");
       for( int i = 0; i < TEST_NUM; i++ )
         begin
           $display("TEST %0d", i);
@@ -113,6 +121,7 @@ module deserializer_tb;
 
           deserialization_test(data_i_local, 0);
         end
+
         $display("ALL TESTS PASSED");
         $stop;
     end

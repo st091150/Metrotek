@@ -24,19 +24,7 @@ module priority_encoder #(
   always_ff @( posedge clk_i )
     begin
       if ( data_val_i )
-        begin
-          data_right_o <= '0;
-          begin: right_for
-            for( int i = 0; i < WIDTH; i++ )
-              begin
-                if ( data_i[i] )
-                  begin
-                    data_right_o[i] <= 1'b1;
-                    disable right_for;
-                  end
-              end
-          end
-        end
+        data_right_o <= data_i & ( ~data_i + 1'b1 );
     end
 
   always_ff @( posedge clk_i )
@@ -44,16 +32,14 @@ module priority_encoder #(
       if ( data_val_i )
         begin
           data_left_o <= '0;
-          begin: left_for
-            for( int i = WIDTH-1; i >= 0; i-- )
-              begin
-                if ( data_i[i] )
-                  begin
-                    data_left_o[i] <= 1'b1;
-                    disable left_for;
-                  end
-              end
-          end
+          for( int i = WIDTH-1; i >= 0; i-- )
+            begin
+              if ( data_i[i] )
+                begin
+                  data_left_o[i] <= 1'b1;
+                  break;
+                end
+            end
         end
     end
 

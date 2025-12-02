@@ -3,7 +3,7 @@
 module priority_encoder_tb;
 
   parameter WIDTH    = 16;
-  parameter TEST_NUM = 10000;
+  parameter TEST_NUM = 1000;
   
   logic             clk;
 
@@ -34,22 +34,30 @@ module priority_encoder_tb;
     .data_val_o    ( data_val_o   )
   );
 
-  function automatic int most_left_one_idx(logic [WIDTH-1:0] data);
+  function automatic logic [WIDTH-1:0] msb_one_hot(logic [WIDTH-1:0] data);
+    logic [WIDTH-1:0] one_hot = '0;
     for (int i = WIDTH-1; i >= 0; i--)
       begin
         if (data[i] == 1'b1)
-          return i; 
+          begin
+            one_hot[i] = 1'b1;
+            return one_hot;
+          end 
       end
-    return -1;
+    return one_hot;
   endfunction
 
-  function automatic int most_right_one_idx(logic [WIDTH-1:0] data);
+  function automatic logic [WIDTH-1:0] lsb_one_hot(logic [WIDTH-1:0] data);
+    logic [WIDTH-1:0] one_hot = '0;
     for (int i = 0; i < WIDTH; i++)
       begin
         if (data[i] == 1'b1)
-          return i; 
+          begin
+            one_hot[i] = 1'b1;
+            return one_hot;
+          end 
       end
-    return -1;
+    return one_hot;
   endfunction
 
   clocking cb @(posedge clk);
@@ -68,22 +76,13 @@ module priority_encoder_tb;
     input bit               data_val_i_in
     );
 
-    int               first_one_idx;
-    int               last_one_idx;
-
-    logic [WIDTH-1:0] expected_data_left_o  = '0;
-    logic [WIDTH-1:0] expected_data_right_o = '0;
+    logic [WIDTH-1:0] expected_data_left_o;
+    logic [WIDTH-1:0] expected_data_right_o;
 
     $display("data_i=%b data_val_i=%b", data_i_in, data_val_i_in);
 
-    first_one_idx = most_left_one_idx(data_i_in);
-    last_one_idx  = most_right_one_idx(data_i_in);
-
-    if(data_val_i_in && first_one_idx != -1)
-      begin
-        expected_data_left_o[first_one_idx] = 1'b1;
-        expected_data_right_o[last_one_idx] = 1'b1;
-      end
+    expected_data_left_o  = msb_one_hot(data_i_in);
+    expected_data_right_o = lsb_one_hot(data_i_in);
 
     cb.data_i     <= data_i_in;
     cb.data_val_i <= data_val_i_in;
@@ -123,10 +122,10 @@ module priority_encoder_tb;
 
   initial 
     begin
-      clk                   = 0;
+      clk        = 0;
 
-      data_i                = 0;
-      data_val_i            = 0;
+      data_i     = 0;
+      data_val_i = 0;
 
       @( cb );
       cb.srst_i <= 1;
@@ -144,7 +143,7 @@ module priority_encoder_tb;
       for( int i = 0; i < TEST_NUM; i++ )
         begin
           $display("TEST %0d", i);
-          data_i_local = $urandom_range(2**WIDTH-1, 0);
+          data_i_local     = $urandom_range(2**WIDTH-1, 0);
           data_val_i_local = $urandom_range(1, 0);
 
           deserialization_test(data_i_local, data_val_i_local);

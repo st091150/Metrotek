@@ -6,6 +6,6 @@ vlog -sv priority_encoder_tb.sv
 
 vsim -novopt  priority_encoder_tb
 
-add wave -r *
+do wave.do
 
 run -all

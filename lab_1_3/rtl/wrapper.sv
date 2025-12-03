@@ -20,7 +20,7 @@ module wrapper #(
   logic             data_val_o_int;
 
   priority_encoder #(
-    .WIDTH(WIDTH)
+    .WIDTH( WIDTH )
   ) DUT (
       .clk_i        ( clk              ),
       .srst_i       ( srst_i           ),
@@ -33,7 +33,7 @@ module wrapper #(
 
   always_ff @( posedge clk ) 
     begin
-      if (srst_i)
+      if ( srst_i )
         data_val_i_r <= 1'b0;
       else
         begin
@@ -42,9 +42,9 @@ module wrapper #(
         end
     end
 
-  always_ff @(posedge clk or posedge srst_i) 
+  always_ff @(posedge clk) 
     begin
-      if (srst_i)
+      if ( srst_i )
         data_val_o_ext <= 1'b0;
       else
         begin

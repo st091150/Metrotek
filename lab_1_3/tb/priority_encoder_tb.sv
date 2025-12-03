@@ -5,7 +5,7 @@ module priority_encoder_tb;
   parameter WIDTH    = 16;
   parameter TEST_NUM = 1000;
   
-  logic             clk;
+  logic             clk_i;
 
   logic             srst_i;
 
@@ -20,12 +20,12 @@ module priority_encoder_tb;
   logic [WIDTH-1:0] data_i_local;
   logic             data_val_i_local;
 
-  always #5 clk = !clk;
+  always #5 clk_i = !clk_i;
 
   priority_encoder #(
     .WIDTH         ( WIDTH        )
   ) DUT (
-    .clk_i         ( clk          ),
+    .clk_i         ( clk_i        ),
     .srst_i        ( srst_i       ),
     .data_i        ( data_i       ),
     .data_val_i    ( data_val_i   ),
@@ -60,7 +60,7 @@ module priority_encoder_tb;
     return one_hot;
   endfunction
 
-  clocking cb @(posedge clk);
+  clocking cb @(posedge clk_i);
     output srst_i;
 
     output data_i;
@@ -122,7 +122,7 @@ module priority_encoder_tb;
 
   initial 
     begin
-      clk        = 0;
+      clk_i      = 0;
 
       data_i     = 0;
       data_val_i = 0;

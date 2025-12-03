@@ -1,5 +1,5 @@
 # Основные сигналы тб
-add wave sim:/priority_encoder_tb/clk
+add wave sim:/priority_encoder_tb/clk_i
 add wave sim:/priority_encoder_tb/srst_i
 
 # Входы DUT

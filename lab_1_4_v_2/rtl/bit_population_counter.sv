@@ -51,12 +51,13 @@ module bit_population_counter #(
       if ( srst_i )
         data_val_d1 <= 1'b0;
       else
-        begin
-          data_val_d1 <= data_val_i;
+        data_val_d1 <= data_val_i;
+    end
 
-          for ( int b = 0; b < BLOCKS_STAGE_1_TOTAL; b++ )
-            pc_stage1_r[b] <= pc_stage1[b];
-        end
+  always_ff @( posedge clk_i )
+    begin
+      for ( int b = 0; b < BLOCKS_STAGE_1_TOTAL; b++ )
+        pc_stage1_r[b] <= pc_stage1[b];
     end
 
   logic [$clog2(BLOCK_W_STAGE_1 * BLOCK_W_STAGE_2):0] pc_stage2   [BLOCKS_STAGE_2_TOTAL];
@@ -88,12 +89,13 @@ module bit_population_counter #(
       if ( srst_i )
         data_val_d2 <= 1'b0;
       else
-        begin
-          data_val_d2 <= data_val_d1;
+        data_val_d2 <= data_val_d1;
+    end
 
-          for ( int b = 0; b < BLOCKS_STAGE_2_TOTAL; b++ )
-            pc_stage2_r[b] <= pc_stage2[b];
-        end
+  always_ff @( posedge clk_i )
+    begin
+      for ( int b = 0; b < BLOCKS_STAGE_2_TOTAL; b++ )
+        pc_stage2_r[b] <= pc_stage2[b];
     end
 
   logic [$clog2(WIDTH):0] pop_count;
@@ -111,10 +113,10 @@ module bit_population_counter #(
       if ( srst_i )
         data_val_o <= 1'b0;
       else
-        begin
-          data_o     <= pop_count;
-          data_val_o <= data_val_d2;
-        end
+        data_val_o <= data_val_d2;
     end
+
+  always_ff @( posedge clk_i ) 
+    data_o <= pop_count;
 
 endmodule

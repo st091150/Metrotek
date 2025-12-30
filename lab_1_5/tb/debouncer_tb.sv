@@ -6,7 +6,9 @@ module debouncer_tb;
   parameter int GLITCH_TIME_NS = 100;
   
   localparam int GLITCH_CYCLES = ( CLK_FREQ_MHZ * GLITCH_TIME_NS ) / 1000;
-  
+
+  localparam int SYNC_DELAY = 2;
+
   logic clk_i;
 
   logic key_i;
@@ -41,7 +43,7 @@ module debouncer_tb;
     begin
       key_i = 1'b1;
 
-      check_strobe_n(GLITCH_CYCLES);
+      check_strobe_n(GLITCH_CYCLES + SYNC_DELAY);
     end
   endtask
 
@@ -49,7 +51,7 @@ module debouncer_tb;
     begin
       key_i = 1'b0;
 
-      check_strobe_n(GLITCH_CYCLES + 2);
+      check_strobe_n(GLITCH_CYCLES + SYNC_DELAY);
 
       @( posedge clk_i )
 
@@ -58,8 +60,6 @@ module debouncer_tb;
           $error("Clean press error: Expected key_pressed_stb_o: 1, DUT key_pressed_stb_o: 0");
           $stop();
         end
-      
-      @( posedge clk_i );
 
       idle_state();
     end
@@ -79,7 +79,7 @@ module debouncer_tb;
         end
 
       key_i = 1'b0;
-      check_strobe_n(GLITCH_CYCLES + 2);
+      check_strobe_n(GLITCH_CYCLES + SYNC_DELAY);
 
       @( posedge clk_i );
 
@@ -88,8 +88,6 @@ module debouncer_tb;
           $error("Glitch press error: Expected key_pressed_stb_o: 1, DUT key_pressed_stb_o: 0");
           $stop();
         end
-      
-      @( posedge clk_i );
 
       idle_state();
     end
@@ -98,6 +96,7 @@ module debouncer_tb;
   task automatic long_press();
     begin
       int strobe_counter = 0;
+      
       key_i = 1'b0;
       
       for ( int i = 0; i < GLITCH_CYCLES * 3; i++ )
@@ -120,6 +119,46 @@ module debouncer_tb;
           $error("Long press error: expected exactly 1 key_pressed_stb_o pulse, got 0");
           $stop();
         end
+
+      idle_state();
+    end
+  endtask
+
+  task automatic edge_case_press( input int hold_cycles );
+    begin
+        int strobe_counter = 0;
+
+        key_i = 1'b0;
+
+        for ( int i = 0; i < hold_cycles; i++ )
+          begin
+            @( posedge clk_i );
+            if ( key_pressed_stb_o === 1 )
+              strobe_counter++;
+          end
+
+        key_i = 1'b1;
+
+        // Use <= here to catch the strobe signal when hold_cycles >= GLITCH_CYCLES
+        for ( int i = 0; i <= SYNC_DELAY; i++ )
+          begin
+            @( posedge clk_i );
+            if ( key_pressed_stb_o === 1 )
+              strobe_counter++;
+          end
+
+        if ( ( hold_cycles < GLITCH_CYCLES ) && ( strobe_counter > 0 ) ) 
+          begin
+              $error("Edge case error: button held %0d (<GLITCH_CYCLES), strobe_counter=%0d", hold_cycles, key_pressed_stb_o);
+              $stop();
+          end
+        else if ( ( hold_cycles >= GLITCH_CYCLES ) && ( strobe_counter !== 1 ) )
+          begin
+              $error("Edge case error: button held %0d (>=GLITCH_CYCLES), strobe_counter=%0d", hold_cycles, strobe_counter);
+              $stop();
+          end
+
+        idle_state();
     end
   endtask
 
@@ -141,6 +180,15 @@ module debouncer_tb;
 
       long_press();
       $display("Long press test passed");
+      
+      edge_case_press(GLITCH_CYCLES - 1);
+      $display("Edge case test passed [GLITCH_CYCLES - 1]");
+
+      edge_case_press(GLITCH_CYCLES);
+      $display("Edge case test passed [GLITCH_CYCLES]");
+
+      edge_case_press(GLITCH_CYCLES + 1);
+      $display("Edge case test passed [GLITCH_CYCLES + 1]");
 
       idle_state();
 

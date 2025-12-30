@@ -6,6 +6,6 @@ vlog -sv debouncer_tb.sv
 
 vsim -novopt debouncer_tb
 
-add wave -r *
+do wave.do
 
 run -all

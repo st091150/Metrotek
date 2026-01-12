@@ -51,7 +51,11 @@ module debouncer_tb;
     begin
       key_i = 1'b0;
 
-      check_strobe_n(GLITCH_CYCLES + SYNC_DELAY);
+      check_strobe_n(GLITCH_CYCLES);
+
+      key_i = 1'b1;
+
+      check_strobe_n(SYNC_DELAY);
 
       @( posedge clk_i )
 

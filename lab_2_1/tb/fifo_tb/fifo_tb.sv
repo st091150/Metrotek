@@ -318,8 +318,8 @@ module fifo_tb;
     begin
       logic [DWIDTH-1:0] data_wr;
 
-      logic do_write = 0;
-      logic do_read  = 0;
+      automatic logic do_write = 0;
+      automatic logic do_read  = 0;
 
       // Reset
       in_vif.srst  <= 1;

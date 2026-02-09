@@ -85,7 +85,7 @@ module mem_tb;
           @( posedge clk_i);
           rd_addr_i <= AWIDTH'(i - 1);
 
-          @( posedge clk_i);
+          @( posedge clk_i );
           @( posedge clk_i );
 
           if ( data_o !== i[DWIDTH-1:0] )
@@ -104,8 +104,9 @@ module mem_tb;
 
       wr_ena_i <= 0;
 
-      $display("=== TEST FINISHED ===");
+      $display("=== TESTS FINISHED ===");
       $stop;
     end
 
 endmodule
+

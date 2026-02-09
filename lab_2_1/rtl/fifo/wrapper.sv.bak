@@ -1,6 +1,6 @@
 module wrapper #(
-  parameter int   DWIDTH = 32,
-  parameter int   AWIDTH = 8,
+  parameter int   DWIDTH = 8,
+  parameter int   AWIDTH = 4,
 
   parameter logic SHOWAHEAD = 1,
 

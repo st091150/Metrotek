@@ -23,8 +23,8 @@ module mem #(
     begin
       if ( wr_ena_i )
         mem[wr_addr_i] <= data_i;
-    end
 
-  assign data_o = mem[rd_addr_i];
+      data_o <= mem[rd_addr_i];
+    end
 
 endmodule

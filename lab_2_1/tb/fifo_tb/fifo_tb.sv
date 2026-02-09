@@ -7,8 +7,8 @@
 `include "env/fifo_env.sv"
 
 module fifo_tb;
-  parameter DWIDTH = 8;
-  parameter AWIDTH = 2;
+  parameter DWIDTH = 16;
+  parameter AWIDTH = 4;
 
   parameter ALMOST_EMPTY_VALUE = 3;
   parameter ALMOST_FULL_VALUE  = 2 ** AWIDTH - 3;

@@ -59,7 +59,9 @@ module mem_tb;
       for ( int i = 0; i < DEPTH; i++ )
         begin
           rd_addr_i <= i[AWIDTH-1:0];
-          #1;
+
+          @( posedge clk_i );
+          @( posedge clk_i );
 
           if ( data_o !== i[DWIDTH-1:0] )
             begin
@@ -83,7 +85,9 @@ module mem_tb;
           @( posedge clk_i);
           rd_addr_i <= AWIDTH'(i - 1);
 
-          #1;
+          @( posedge clk_i);
+          @( posedge clk_i );
+
           if ( data_o !== i[DWIDTH-1:0] )
             begin
               $error("READ ERROR: rd_addr=%0d exp=%0h got=%0h",

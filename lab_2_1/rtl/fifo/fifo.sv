@@ -32,21 +32,23 @@ module fifo #(
 
   localparam PTR_W = AWIDTH + 1;
 
-  logic             full_o_next;
-  logic             empty_o_next;
+  logic              full_o_next;
+  logic              empty_o_next;
 
-  logic             almost_full_o_next;
-  logic             almost_empty_o_next;
+  logic              almost_full_o_next;
+  logic              almost_empty_o_next;
   
-  logic             hold_last_q;
+  logic              hold_last_q;
 
-  logic [PTR_W-1:0] wr_idx;
-  logic [PTR_W-1:0] rd_idx;
+  logic [AWIDTH-1:0] usedw_next;
 
-  logic [PTR_W-1:0] wr_idx_next;
-  logic [PTR_W-1:0] rd_idx_next;
+  logic [PTR_W-1:0]  wr_idx;
+  logic [PTR_W-1:0]  rd_idx;
 
-  logic [PTR_W-1:0] mem_rd_idx;
+  logic [PTR_W-1:0]  wr_idx_next;
+  logic [PTR_W-1:0]  rd_idx_next;
+
+  logic [PTR_W-1:0]  mem_rd_idx;
 
   mem #(
     .DWIDTH    ( DWIDTH                 ),
@@ -71,26 +73,11 @@ module fifo #(
   assign full_o_next  = ( rd_idx_next[AWIDTH-1:0] == wr_idx_next[AWIDTH-1:0] ) &&
                         ( rd_idx_next[PTR_W-1]    != wr_idx_next[PTR_W-1]   );
 
-  assign empty_o_next = ( ( rd_idx + rdreq_i ) == wr_idx );
+  assign empty_o_next = ( rd_idx_next == wr_idx );
 
-  assign almost_full_o_next = ( wrreq_i && ( !rdreq_i ) && ( usedw_o + 1 ) >= ALMOST_FULL_VALUE ) ||
-                              ( rdreq_i && ( !wrreq_i ) && ( usedw_o - 1 ) >= ALMOST_FULL_VALUE ) || 
-                              ( ( wrreq_i == rdreq_i )  && usedw_o >= ALMOST_FULL_VALUE ) ||
-                              ( full_o_next  );
-  
-  assign almost_empty_o_next = ( wrreq_i && ( !rdreq_i ) && ( usedw_o + 1 ) < ALMOST_EMPTY_VALUE ) ||
-                               ( rdreq_i && ( !wrreq_i ) && ( usedw_o - 1 ) < ALMOST_EMPTY_VALUE ) || 
-                               ( ( wrreq_i == rdreq_i )  && usedw_o < ALMOST_EMPTY_VALUE && ( !full_o_next ) );
+  assign almost_full_o_next  = ( usedw_next >= ALMOST_FULL_VALUE )  || full_o_next;
 
-  always_comb
-    begin
-      if ( usedw_o == 1 && rdreq_i )
-        mem_rd_idx = rd_idx;
-      else if ( hold_last_q )
-        mem_rd_idx = rd_idx - PTR_W'(1);
-      else 
-        mem_rd_idx = rd_idx_next;
-    end
+  assign almost_empty_o_next = ( usedw_next <  ALMOST_EMPTY_VALUE ) && !full_o_next;
 
   always_ff @( posedge clk_i )
     begin
@@ -106,6 +93,16 @@ module fifo #(
         rd_idx <= '0;
       else
         rd_idx <= rd_idx_next;
+    end
+
+  always_comb
+    begin
+      if ( usedw_o == 1 && rdreq_i )
+        mem_rd_idx = rd_idx;
+      else if ( hold_last_q )
+        mem_rd_idx = rd_idx - PTR_W'(1);
+      else 
+        mem_rd_idx = rd_idx_next;
     end
 
   always_ff @( posedge clk_i )
@@ -130,6 +127,16 @@ module fifo #(
           default: usedw_o <= usedw_o;
         endcase
     end
+
+  always_comb
+  begin
+    usedw_next = usedw_o;
+    case ( { wrreq_i, rdreq_i } )
+      2'b10:   usedw_next = usedw_o + AWIDTH'(1);
+      2'b01:   usedw_next = usedw_o - AWIDTH'(1);
+      default: usedw_next = usedw_o;
+    endcase
+  end
 
   always_ff @( posedge clk_i )
     begin

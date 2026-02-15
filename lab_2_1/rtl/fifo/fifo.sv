@@ -122,8 +122,16 @@ module fifo #(
         usedw_o <= '0;
       else
         case ( { wrreq_i, rdreq_i } )
-          2'b10:   usedw_o <= usedw_o + AWIDTH'(1);
-          2'b01:   usedw_o <= usedw_o - AWIDTH'(1);
+          2'b10: 
+            begin
+              if ( !full_o )
+                usedw_o <= usedw_o + AWIDTH'(1);
+            end
+          2'b01:
+            begin
+              if( !empty_o )
+                usedw_o <= usedw_o - AWIDTH'(1);
+            end
           default: usedw_o <= usedw_o;
         endcase
     end

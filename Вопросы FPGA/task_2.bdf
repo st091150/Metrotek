@@ -277,7 +277,7 @@ refer to the applicable agreement for further details.
 )
 (pin
 	(output)
-	(rect 1384 528 1560 544)
+	(rect 1624 528 1800 544)
 	(text "OUTPUT" (rect 1 0 39 9)(font "Arial" (font_size 6)))
 	(text "q_o" (rect 90 0 107 10)(font "Arial" ))
 	(pt 0 8)
@@ -574,7 +574,7 @@ refer to the applicable agreement for further details.
 	)
 )
 (symbol
-	(rect 1136 448 1200 528)
+	(rect 1224 448 1288 528)
 	(text "AND4" (rect 1 0 28 9)(font "Arial" (font_size 6)))
 	(text "inst7" (rect 3 69 27 81)(font "Intel Clear" ))
 	(port
@@ -621,7 +621,7 @@ refer to the applicable agreement for further details.
 	)
 )
 (symbol
-	(rect 1136 552 1200 632)
+	(rect 1320 552 1384 632)
 	(text "AND4" (rect 1 0 28 9)(font "Arial" (font_size 6)))
 	(text "inst8" (rect 3 69 27 81)(font "Intel Clear" ))
 	(port
@@ -668,7 +668,7 @@ refer to the applicable agreement for further details.
 	)
 )
 (symbol
-	(rect 1136 656 1200 736)
+	(rect 1432 656 1496 736)
 	(text "AND4" (rect 1 0 28 9)(font "Arial" (font_size 6)))
 	(text "inst9" (rect 3 69 27 81)(font "Intel Clear" ))
 	(port
@@ -795,7 +795,6 @@ refer to the applicable agreement for further details.
 	(pt 640 360)
 )
 (connector
-	(text "<<__$DEF_ALIAS721>>" (rect 731 320 845 332)(font "Intel Clear" )(invisible))
 	(pt 704 336)
 	(pt 776 336)
 )
@@ -828,37 +827,9 @@ refer to the applicable agreement for further details.
 	(pt 1136 376)
 )
 (connector
-	(pt 1136 480)
-	(pt 1072 480)
-)
-(connector
-	(pt 1136 584)
-	(pt 1072 584)
-)
-(connector
-	(pt 1072 376)
-	(pt 1072 480)
-)
-(connector
-	(pt 1072 480)
-	(pt 1072 584)
-)
-(connector
-	(pt 1072 688)
-	(pt 1136 688)
-)
-(connector
 	(text "c_i == 0" (rect 1018 608 1055 620)(font "Intel Clear" ))
 	(pt 1072 624)
 	(pt 1008 624)
-)
-(connector
-	(pt 1072 584)
-	(pt 1072 624)
-)
-(connector
-	(pt 1072 624)
-	(pt 1072 688)
 )
 (connector
 	(pt 936 600)
@@ -877,22 +848,6 @@ refer to the applicable agreement for further details.
 	(pt 1136 392)
 )
 (connector
-	(pt 1136 496)
-	(pt 928 496)
-)
-(connector
-	(pt 928 496)
-	(pt 928 616)
-)
-(connector
-	(pt 912 616)
-	(pt 928 616)
-)
-(connector
-	(pt 928 616)
-	(pt 944 616)
-)
-(connector
 	(pt 936 632)
 	(pt 936 680)
 )
@@ -903,6 +858,71 @@ refer to the applicable agreement for further details.
 (connector
 	(pt 936 632)
 	(pt 944 632)
+)
+(connector
+	(text "compare" (rect 946 344 988 356)(font "Intel Clear" ))
+	(pt 840 360)
+	(pt 1120 360)
+)
+(connector
+	(pt 1120 360)
+	(pt 1136 360)
+)
+(connector
+	(pt 928 616)
+	(pt 928 496)
+)
+(connector
+	(pt 1120 360)
+	(pt 1120 464)
+)
+(connector
+	(pt 1072 376)
+	(pt 1072 480)
+)
+(connector
+	(pt 912 616)
+	(pt 928 616)
+)
+(connector
+	(pt 928 616)
+	(pt 944 616)
+)
+(connector
+	(pt 1120 464)
+	(pt 1224 464)
+)
+(connector
+	(pt 1072 480)
+	(pt 1224 480)
+)
+(connector
+	(pt 928 496)
+	(pt 1224 496)
+)
+(connector
+	(pt 1072 480)
+	(pt 1072 584)
+)
+(connector
+	(pt 1120 568)
+	(pt 1320 568)
+)
+(connector
+	(pt 1072 584)
+	(pt 1320 584)
+)
+(connector
+	(pt 936 680)
+	(pt 1288 680)
+)
+(connector
+	(pt 1288 680)
+	(pt 1288 600)
+)
+(connector
+	(pt 1320 600)
+	(pt 1288 600)
 )
 (connector
 	(pt 928 648)
@@ -917,95 +937,110 @@ refer to the applicable agreement for further details.
 	(pt 944 648)
 )
 (connector
+	(pt 1072 584)
+	(pt 1072 624)
+)
+(connector
+	(pt 1072 624)
+	(pt 1072 688)
+)
+(connector
+	(pt 1120 464)
+	(pt 1120 568)
+)
+(connector
+	(pt 1120 568)
+	(pt 1120 672)
+)
+(connector
+	(pt 1120 672)
+	(pt 1432 672)
+)
+(connector
+	(pt 1072 688)
+	(pt 1432 688)
+)
+(connector
 	(pt 928 704)
-	(pt 1136 704)
+	(pt 1432 704)
 )
 (connector
-	(text "compare" (rect 946 344 988 356)(font "Intel Clear" ))
-	(pt 840 360)
-	(pt 1120 360)
+	(text "q[3]" (rect 1506 680 1526 692)(font "Intel Clear" ))
+	(pt 1496 696)
+	(pt 1536 696)
 )
 (connector
-	(pt 1120 360)
-	(pt 1136 360)
-)
-(connector
-	(pt 1120 464)
-	(pt 1136 464)
-)
-(connector
-	(pt 1120 568)
-	(pt 1136 568)
-)
-(connector
-	(pt 1120 360)
-	(pt 1120 464)
-)
-(connector
-	(pt 1136 672)
-	(pt 1120 672)
-)
-(connector
-	(pt 1120 464)
-	(pt 1120 568)
-)
-(connector
-	(pt 1120 568)
-	(pt 1120 672)
-)
-(connector
-	(pt 936 680)
-	(pt 1096 680)
-)
-(connector
-	(pt 1096 680)
-	(pt 1096 600)
-)
-(connector
-	(pt 1136 600)
-	(pt 1096 600)
-)
-(connector
-	(pt 1296 384)
-	(pt 1296 488)
-)
-(connector
-	(pt 1296 592)
-	(pt 1296 696)
-)
-(connector
-	(text "q_o[3..0]" (rect 1330 520 1372 532)(font "Intel Clear" ))
-	(pt 1296 536)
-	(pt 1384 536)
+	(text "q_o[3..0]" (rect 1570 520 1612 532)(font "Intel Clear" ))
+	(pt 1624 536)
+	(pt 1536 536)
 	(bus)
 )
 (connector
-	(pt 1296 488)
-	(pt 1296 536)
+	(pt 1536 384)
+	(pt 1536 488)
 )
 (connector
-	(pt 1296 536)
-	(pt 1296 592)
+	(pt 1536 488)
+	(pt 1536 536)
+)
+(connector
+	(pt 1536 536)
+	(pt 1536 592)
+)
+(connector
+	(pt 1536 592)
+	(pt 1536 696)
+)
+(connector
+	(pt 1208 384)
+	(pt 1208 512)
+)
+(connector
+	(pt 1208 512)
+	(pt 1224 512)
+)
+(connector
+	(pt 1200 384)
+	(pt 1208 384)
 )
 (connector
 	(text "q[0]" (rect 1210 368 1230 380)(font "Intel Clear" ))
-	(pt 1296 384)
-	(pt 1200 384)
+	(pt 1208 384)
+	(pt 1536 384)
 )
 (connector
-	(text "q[1]" (rect 1210 472 1230 484)(font "Intel Clear" ))
 	(pt 1296 488)
-	(pt 1200 488)
+	(pt 1296 616)
 )
 (connector
-	(text "q[2]" (rect 1210 576 1230 588)(font "Intel Clear" ))
-	(pt 1296 592)
-	(pt 1200 592)
+	(pt 1296 616)
+	(pt 1320 616)
 )
 (connector
-	(text "q[3]" (rect 1210 680 1230 692)(font "Intel Clear" ))
-	(pt 1200 696)
-	(pt 1296 696)
+	(pt 1288 488)
+	(pt 1296 488)
+)
+(connector
+	(text "q[1]" (rect 1298 472 1318 484)(font "Intel Clear" ))
+	(pt 1296 488)
+	(pt 1536 488)
+)
+(connector
+	(pt 1400 592)
+	(pt 1400 720)
+)
+(connector
+	(pt 1400 720)
+	(pt 1432 720)
+)
+(connector
+	(pt 1384 592)
+	(pt 1400 592)
+)
+(connector
+	(text "q[2]" (rect 1394 576 1414 588)(font "Intel Clear" ))
+	(pt 1400 592)
+	(pt 1536 592)
 )
 (junction (pt 1072 480))
 (junction (pt 1072 584))
@@ -1017,6 +1052,9 @@ refer to the applicable agreement for further details.
 (junction (pt 1120 360))
 (junction (pt 1120 464))
 (junction (pt 1120 568))
+(junction (pt 1536 488))
+(junction (pt 1536 536))
+(junction (pt 1536 592))
+(junction (pt 1208 384))
 (junction (pt 1296 488))
-(junction (pt 1296 592))
-(junction (pt 1296 536))
+(junction (pt 1400 592))
